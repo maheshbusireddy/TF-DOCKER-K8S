@@ -1,0 +1,23 @@
+- name: Declare variable at play level
+  hosts: all
+  connection: local
+  vars:
+    URL: play.exapmle.com
+  tasks:
+    - name: Access a variable
+      ansible.builtin.debug:
+         msg: URL == {{URL}}  
+- name: Register a variable
+  hosts: all
+  connection: local
+  tasks:
+    - name: run a shell command
+      ansible.builtin.shell: uptime
+      register: out
+    - name: print out
+      ansible.builtin.debug: 
+        msg: "{{out.stdout}}"
+    - name: set a fact
+      ansible.builtin.set_fact:
+        OUTPUT: "{{out.stdout}}"  
+
